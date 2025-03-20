@@ -26,6 +26,10 @@ async def login(data: dict):
     whatsapp = data.get("whatsapp")
     password = data.get("password")
 
+
+    print("whatsapp: ", whatsapp)
+    print("password: ", password)
+
     # Buscar admin no banco
     admin = db.admins.find_one({"whatsapp": whatsapp})
     if not admin:
