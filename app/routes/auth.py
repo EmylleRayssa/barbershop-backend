@@ -31,13 +31,17 @@ async def login(data: dict):
     print("password: ", password)
 
     # Buscar admin no banco
-    admin = db.admins.find_one({"whatsapp": whatsapp})
+    admin = await db.admins.find_one({"whatsapp": whatsapp})
     if not admin:
         raise HTTPException(status_code=400, detail="Usuário não encontrado.")
+
+    print("ADMIN: ", admin)
 
     # Verificar senha
     if not pwd_context.verify(password, admin["password"]):
         raise HTTPException(status_code=400, detail="Senha incorreta.")
+
+    print("Senha passou!!!")
 
     # Criar token JWT
     token_data = {"sub": whatsapp, "exp": datetime.utcnow() + timedelta(hours=2)}
