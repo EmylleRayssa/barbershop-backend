@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 
 # 🔹 Configuração: Altere a URI para se conectar ao MongoDB local ou no Docker
-MONGO_URI = "mongodb://localhost:27017"  # Se o MongoDB estiver rodando localmente
+MONGO_URI = "mongodb://mongo:lgRNTOxptmDhURNKzWXSsyWDmZzHjVwD@yamanote.proxy.rlwy.net:51370"#"mongodb://localhost:27017"  # Se o MongoDB estiver rodando localmente
 # MONGO_URI = "mongodb://mongo:27017"  # Se estiver rodando via Docker
 
 # 🔹 Conectar ao MongoDB
@@ -36,7 +36,7 @@ def test_mongo():
 
     print(booked_slots)
 
-    
+
     # for booking in bookings:
     #     print(booking)
 
