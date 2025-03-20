@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from passlib.context import CryptContext
 from pydantic import BaseModel
 from datetime import timedelta
-from core.security import create_access_token, verify_password  # Funções auxiliares para JWT e senha
+# from core.security import create_access_token, verify_password  # Funções auxiliares para JWT e senha
 from db import db  # Conexão com o MongoDB
 from datetime import datetime, timedelta
 import jwt
