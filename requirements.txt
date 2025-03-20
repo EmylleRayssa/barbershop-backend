@@ -1,7 +1,8 @@
-fastapi[all]
-pymongo
-motor
-python-dotenv
 bcrypt
+fastapi[all]
+motor
+passlib==1.7.4
+pymongo
 pyjwt
+python-dotenv
 uvicorn
