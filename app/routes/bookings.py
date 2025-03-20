@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException
+from pymongo import ASCENDING
 from app.database import db
 from app.models import Booking
 from typing import List
@@ -70,4 +71,35 @@ async def get_available_times(barber_id: str, date: str, service_duration: int):
     except Exception as e:
         print("An exception occurred ::", e)
         return []
-    return available_times
+    return 
+
+
+# 🔹 Rota para buscar todos os agendamentos por mês e barbeiro
+@router.get("/bookings/all-bookings")
+async def get_all_bookings(month: int, year: int):
+    """
+    Retorna todos os agendamentos de um determinado mês e ano, agrupados por barbeiro.
+    """
+    try:
+        # 🔹 Definir as datas de início e fim do mês
+        start_date = datetime(year, month, 1)
+        if month == 12:
+            end_date = datetime(year + 1, 1, 1)
+        else:
+            end_date = datetime(year, month + 1, 1)
+
+        # 🔹 Buscar agendamentos no MongoDB
+        appointments_cursor = db.bookings.find({
+            "date": {"$gte": start_date.strftime("%Y-%m-%d"), "$lt": end_date.strftime("%Y-%m-%d")}
+        }).sort("date", ASCENDING)
+
+        # 🔹 Converter para lista e formatar o ObjectId
+        appointments = []
+        async for appointment in appointments_cursor:
+            appointment["_id"] = str(appointment["_id"])  # Converte o ObjectId para string
+            appointments.append(appointment)
+
+        return {"status": "success", "appointments": appointments}
+
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
