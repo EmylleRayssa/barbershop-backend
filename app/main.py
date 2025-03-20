@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import users, services, bookings, barbers  # 🔹 Adicionando barbeiros
+from app.routes import auth, users, services, bookings, barbers  # 🔹 Adicionando barbeiros
 
 app = FastAPI(title="API de Agendamento")
 
@@ -13,6 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(auth.router, prefix="/auth")
 app.include_router(users.router, prefix="/users")
 app.include_router(services.router, prefix="/services")
 app.include_router(bookings.router, prefix="/bookings")
