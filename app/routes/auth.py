@@ -12,7 +12,13 @@ class AdminLogin(BaseModel):
 
 @router.post("/admin/login")
 async def admin_login(data: AdminLogin):
+
+    print(">>>>>>> ", data)
+
     admin = await db.admins.find_one({"whatsapp": data.whatsapp})
+
+    print(">>>>>>> ", admin)
+
     if not admin or not verify_password(data.password, admin["password"]):
         raise HTTPException(status_code=401, detail="Credenciais inválidas")
 
