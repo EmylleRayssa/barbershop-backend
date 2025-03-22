@@ -76,17 +76,14 @@ async def get_available_times(barber_id: str, date: str, service_duration: int):
 
 # 🔹 Rota para buscar todos os agendamentos por mês e barbeiro
 @router.get("/bookings/all-bookings")
-async def get_all_bookings(month: int, year: int):
+async def get_all_bookings(year: int):
     """
     Retorna todos os agendamentos de um determinado mês e ano, agrupados por barbeiro.
     """
     try:
         # 🔹 Definir as datas de início e fim do mês
-        start_date = datetime(year, month, 1)
-        if month == 12:
-            end_date = datetime(year + 1, 1, 1)
-        else:
-            end_date = datetime(year, month + 1, 1)
+        start_date = datetime(year, 1, 1)
+        end_date = datetime(year, 12, 31)
 
         # 🔹 Buscar agendamentos no MongoDB
         appointments_cursor = db.bookings.find({
